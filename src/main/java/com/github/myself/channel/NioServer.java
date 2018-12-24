@@ -17,9 +17,15 @@ import java.util.Set;
 public class NioServer {
 
     public void server(int port) throws IOException{
+        //可选择的通道, 用于面向流的侦听插槽。
+        //open:打开服务器套接字通道
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+        //设定为非阻塞
         serverSocketChannel.configureBlocking(false);
+        //此类实现服务器套接字。服务器套接字等待 通过网络进入的请求。它根据该请求执行一些操作, 然后可能将结果返回给请求者。
+        //socket：检索与此通道关联的服务器套接字。
         ServerSocket serverSocket = serverSocketChannel.socket();
+        //此类实现 ip 套接字地址 (ip 地址 + 端口号) 它也可以是一对 (主机名 + 端口号), 在这种情况下, 将尝试解析主机名。如果解析失败, 则该地址被称为 <I> 未解决 </I> 但仍可在某些情况下使用, 例如通过代理连接。
         InetSocketAddress address = new InetSocketAddress(port);
         //将服务器绑定到选定的端口
         serverSocket.bind(address);
