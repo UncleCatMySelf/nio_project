@@ -13,7 +13,7 @@ public class WebClient {
     public static void main(String[] args) throws IOException {
         try {
             SocketChannel socketChannel = SocketChannel.open();
-            socketChannel.connect(new InetSocketAddress("127.0.0.1",8090));
+            socketChannel.connect(new InetSocketAddress("0.0.0.0",8090));
 
             ByteBuffer writeBuffer = ByteBuffer.allocate(32);
             ByteBuffer readBuffer = ByteBuffer.allocate(32);
