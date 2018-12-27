@@ -21,7 +21,6 @@ public class WebClient {
             writeBuffer.put("hello".getBytes());
             writeBuffer.flip();
             while (true){
-//            for (int i=0;i<5;i++){
                 writeBuffer.rewind();
                 socketChannel.write(writeBuffer);
                 readBuffer.clear();

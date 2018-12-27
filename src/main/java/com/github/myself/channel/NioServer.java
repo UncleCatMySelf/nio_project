@@ -43,7 +43,6 @@ public class NioServer {
                 selector.select();
             }catch (IOException e){
                 e.printStackTrace();
-                //handle exception
                 break;
             }
             //获取所有接收事件的SelectionKey实例
@@ -58,15 +57,12 @@ public class NioServer {
                     if (key.isAcceptable()){
                         //channel：返回为其创建此键的通道。 即使在取消密钥后, 此方法仍将继续返回通道。
                         ServerSocketChannel server = (ServerSocketChannel)key.channel();
-                        //套接字通道是通过调用此类的 {@link #open 开放} 方法之一来创建的。 不可能为任意的、预先存在的套接字创建通道。新创建的套接字通道已打开, 但尚未连接。 尝试在未连接的通道上调用 ito 操作将导致引发 {@link。 套接字通道可以通过调用其 {@link #connect 连接} 方法进行连接;一旦连接, 套接字通道将保持连接, 直到关闭。 是否连接套接字通道可以通过调用其 {@link #isConnected 已连接} 方法来确定。
                         //可选择的通道, 用于面向流的连接插槽。
-                        //accept：接受与此通道的套接字所建立的连接。
                         SocketChannel client = server.accept();
-                        System.out.println("是否连接"+client.isConnected());
                         //设定为非阻塞
                         client.configureBlocking(false);
                         //接受客户端，并将它注册到选择器，并添加附件
-                        client.register(selector,SelectionKey.OP_WRITE | SelectionKey.OP_READ,msg.duplicate());
+                        client.register(selector, SelectionKey.OP_READ,msg.duplicate());
                         System.out.println("Accepted connection from " + client);
                     }
                     //检查套接字是否已经准备好读数据
@@ -77,7 +73,7 @@ public class NioServer {
                         readBuff.flip();
                         System.out.println("received:"+new String(readBuff.array()));
                         //将此键的兴趣集设置为给定的值。 OP_WRITE
-                        key.interestOps(SelectionKey.OP_WRITE);
+//                        key.interestOps(SelectionKey.OP_WRITE);
                     }
                     //检查套接字是否已经准备好写数据
                     if (key.isWritable()){
@@ -87,7 +83,7 @@ public class NioServer {
                         buffer.rewind();
                         client.write(buffer);
                         //将此键的兴趣集设置为给定的值。 OP_READ
-                        key.interestOps(SelectionKey.OP_READ);
+//                        key.interestOps(SelectionKey.OP_READ);
                     }
                 }catch (IOException e){
                    e.printStackTrace();
