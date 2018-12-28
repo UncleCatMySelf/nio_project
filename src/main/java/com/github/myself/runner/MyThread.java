@@ -5,8 +5,12 @@ package com.github.myself.runner;
  */
 public class MyThread extends Thread {
 
+    public MyThread(String name) {
+        super(name);
+    }
+
     @Override
     public void run() {
-        System.out.println("一个子线程");
+        System.out.println("一个子线程 BY " + getName());
     }
 }
