@@ -20,6 +20,7 @@ public class Application {
         //可取消的异步计算。 此类提供 {@link future} 的基本实现, 其中包含启动和取消计算的方法、查看计算是否已完成的查询, 以及
         // 检索计算的结果。 只有在计算完成后才能检索结果; 只有在计算完成后, 才能检索结果。如果计算尚未完成, 则 {@code get} 方法将被阻止。
         // 计算完成后, 无法重新启动或取消计算 (除非使用 {@link #runAndReset} 调用计算)。
+        // 构造方法：创建一个 {@code 未来任务}, 该操作将在运行时执行给定的 {@code 可调用}。
         final FutureTask fun = new FutureTask(new MyThreadFuture("Future"));
 
 
@@ -37,14 +38,17 @@ public class Application {
             e.printStackTrace();
             fun.cancel(true);
             System.out.println("项目超时");
+            //TODO 重新执行
         }
 
         // 2、Runnable
+        //<code> 可运行的 </code> 接口应由其实例打算由线程执行的任何类实现。该类必须定义不调用参数的方法 <code> 运行 </code>。
         MyThreadRunnable runnable = new MyThreadRunnable("Runnable");
         runnable.run();
         runnable.run();
 
         // 3、Thread
+
         MyThread myThread = new MyThread("Thread");
         myThread.run();
         myThread.run();
